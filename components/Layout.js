@@ -2,7 +2,7 @@
 import Head from "next/head";
 import { connect } from "react-redux";
 import actions from "../redux/actions";
-import { Nav, Navbar } from "react-bootstrap";
+import Link from 'next/link'
 
 const Layout = ({ children, title, isAuthenticated, deauthenticate }) => (
   <div>
@@ -11,64 +11,53 @@ const Layout = ({ children, title, isAuthenticated, deauthenticate }) => (
       <meta charSet="utf-8" />
       {(isAuthenticated, deauthenticate)}
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      {/* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css" /> */}
-      {/* <link rel="stylesheet" href="static/css/bootstrap.min.css" /> */}
-      <link
-        rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous"
-      />
-      {/* <link rel="stylesheet" href="/static/css/main.css"/> */}
-      <script
-        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"
-      />
-      <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"
-      />
-      <script
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"
-      />
+      <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     </Head>
-    <div className="">
-      <Navbar>
-        <Navbar.Brand href="#home">Web App</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/whoami">Profile</Nav.Link>
-            {!isAuthenticated && <Nav.Link href="/signin">Signin</Nav.Link>}
-            {isAuthenticated && (
-              <Nav.Link
-                onClick={e => {
+    <div className="md:border-bottom-2 fixed top-0 right-0 left-0" style={{backgroundColor: 'rgba(255,255,255,.6)'}}>
+      <div className="max-w-screen-xl mx-auto px-4 sm:p-0">
+        <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:space-x-10">
+          <div className="">
+            <a href="https://componentity.com" target="_blank" className="flex">
+              <img src="http://codenawis.com/componentity/wp-content/uploads/2020/08/logo-componentity-%E2%80%93-9.png" className="w-32" />
+            </a>
+          </div>
+          <nav className="hidden md:flex space-x-10 ml-auto">
+            <Link href="/">
+              <a className="text-base leading-6 font-semibold text-indigo-600 focus:outline-none focus:text-gray-900 transition ease-in-out duration-150">
+                Home
+              </a>
+            </Link>
+            {
+               isAuthenticated &&
+              <Link href="/whoami">
+                <a className="text-base leading-6 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition ease-in-out duration-150">
+                  Profile
+                </a>
+              </Link>
+            }
+            { !isAuthenticated &&
+              <Link href="/signin">
+                <a className="text-base leading-6 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition ease-in-out duration-150">
+                  Login
+                </a>
+              </Link>
+            }
+            {isAuthenticated &&
+              <a onClick={e => {
                   e.preventDefault();
                   deauthenticate();
-                }}
-                href="">
-                Signout
-              </Nav.Link>
-            )}
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+                }} className="text-base leading-6 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition ease-in-out duration-150 cursor-pointer">
+                  Signout
+                </a>
+            }
+          </nav>
+        </div>
+      </div>
     </div>
-
-    {children}
-    <style jsx global>
-      
-      {`
-        .container {
-          max-width: 800px !important;
-        }
-      `}
-    </style>
+    <main>
+      {children}
+    </main>
   </div>
 );
 

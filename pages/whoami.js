@@ -27,7 +27,6 @@ Whoami.getInitialProps = async ctx => {
   initialize(ctx);
   const token = ctx.store.getState().authentication.token;
   if (token) {
-    console.log("TOken", token)
     // let id = jwt_decode(token).id;
     try {
       const response = await axios.get(
