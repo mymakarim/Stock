@@ -11,10 +11,7 @@ const Whoami = ({ user }) => {
     <Layout title="Who Am I">
       {(user && (
         <h3 className="title is-3">
-          You are logged in as{" "}
-          <strong className="is-size-2 has-text-primary">
-            {user.name}
-          </strong>
+          You are logged in as {user.name}
           .
         </h3>
       )) || (
@@ -37,13 +34,13 @@ Whoami.getInitialProps = async ctx => {
         `https://stock321.herokuapp.com/api/v1/user/me`,
         {
           headers: {
-            authorization: token
+            authorization: `Bearer ${token}`
           }
         }
       );
       const user = response.data;
       return {
-        user
+        user:user.data
       };
     } catch (error) {
       devLogger("this is the error=> ",error.response.data);
