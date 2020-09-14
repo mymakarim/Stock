@@ -6,14 +6,14 @@ import Layout from "../components/Layout";
 import devLogger from "dev-logger-simple";
 
 const Whoami = ({ user }) => {
-  devLogger(user)
+  // devLogger(user)
   return (
     <Layout title="Who Am I">
       {(user && (
         <h3 className="title is-3">
           You are logged in as{" "}
           <strong className="is-size-2 has-text-primary">
-            {user.name || user.firstName}
+            {user.name}
           </strong>
           .
         </h3>
@@ -30,10 +30,11 @@ Whoami.getInitialProps = async ctx => {
   initialize(ctx);
   const token = ctx.store.getState().authentication.token;
   if (token) {
+    console.log("TOken", token)
     // let id = jwt_decode(token).id;
     try {
       const response = await axios.get(
-        `https://api.github.com/users/kenshinman`,
+        `https://stock321.herokuapp.com/api/v1/user/me`,
         {
           headers: {
             authorization: token
@@ -46,7 +47,6 @@ Whoami.getInitialProps = async ctx => {
       };
     } catch (error) {
       devLogger("this is the error=> ",error.response.data);
-     
     }
   }
 };

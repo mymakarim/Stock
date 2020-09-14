@@ -1,11 +1,9 @@
 import { connect } from "react-redux";
 import initialize from "../utils/initialize";
 import Layout from "../components/Layout";
-import TopSection from "../components/TopSection";
 
 const Index = () => (
   <Layout title="Home">
-    <TopSection />
     <div className="container">
       <h2 className="title is-2">Authentication with Next.js and JWT</h2>
       <img src="/static/nextjs.jpg" />

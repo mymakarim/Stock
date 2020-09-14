@@ -12,12 +12,14 @@ const login = ({ email, password }, type) => {
   }
   return dispatch => {
     axios
-      .post(`${API}/auth/login`, { email, password })
+      // .post(`${API}/auth/login`, { email, password })
+      .post(`${API}/login`, { email, password })
       .then(response => {
-        setCookie("token", response.data.token);
+        // setCookie("token", response.data.token);
+        setCookie("token", response.data.data.token);
         setCookie("user", JSON.stringify(response.data.data));
         Router.push("/");
-        dispatch({ type: AUTHENTICATE, payload: response.data.token });
+        dispatch({ type: AUTHENTICATE, payload: response.data.data.token });
         dispatch({ type: SET_USER, payload: response.data.data });
       })
       .catch(err => {
